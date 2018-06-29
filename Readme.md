@@ -22,7 +22,7 @@ co(function* () {
   var result = yield Promise.resolve(true);
   return result;
 }).then(function (value) {
-  console.log(value);
+  console.log(value);  // true
 }, function (err) {
   console.error(err.stack);
 });
@@ -30,6 +30,8 @@ co(function* () {
 
   If you want to convert a `co`-generator-function into a regular function that returns a promise,
   you now use `co.wrap(fn*)`.
+
+  其实下面这个例子和上面的例子本质是相同的，只是将参数给抽离出来
 
 ```js
 var fn = co.wrap(function* (val) {
@@ -79,12 +81,13 @@ co(function *(){
   var result = yield Promise.resolve(true);
 }).catch(onerror);
 
+// 可以注意下这种写法
 co(function *(){
   // resolve multiple promises in parallel
   var a = Promise.resolve(1);
   var b = Promise.resolve(2);
   var c = Promise.resolve(3);
-  var res = yield [a, b, c];
+  var res = yield [a, b, c]; // 本质用了 Promise.all
   console.log(res);
   // => [1, 2, 3]
 }).catch(onerror);
