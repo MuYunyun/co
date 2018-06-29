@@ -20,7 +20,7 @@
 ```js
 co(function* () {
   var result = yield Promise.resolve(true);
-  return result;
+  return result;       // 这里 return 的值会进入下面 then 中的 value
 }).then(function (value) {
   console.log(value);  // true
 }, function (err) {
